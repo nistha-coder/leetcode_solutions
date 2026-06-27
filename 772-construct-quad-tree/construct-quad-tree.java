@@ -39,45 +39,30 @@ class Node {
 */
 
 class Solution {
-
     public Node construct(int[][] grid) {
-        return build(grid, 0, 0, grid.length);
+        return build(grid,0,0,grid.length);
     }
-
-    private Node build(int[][] grid, int row, int col, int size) {
-
-        // Check whether all values are same
+    public Node build(int[][] grid, int row, int col, int size){
         boolean same = true;
-        int val = grid[row][col];
-
-        for (int i = row; i < row + size && same; i++) {
-            for (int j = col; j < col + size; j++) {
-                if (grid[i][j] != val) {
-                    same = false;
+        int val= grid[row][col];
+        for(int i=row;i<row+size && same ; i++){
+            for(int j=col; j<col+size;j++){
+                if(grid[i][j]!=val){
+                    same=false;
                     break;
                 }
             }
         }
-
-        // Leaf node
-        if (same) {
-            return new Node(val == 1, true);
+        if(same){
+            return new Node(val==1,true);
         }
-
-        int half = size / 2;
-
-        Node topLeft = build(grid, row, col, half);
-        Node topRight = build(grid, row, col + half, half);
-        Node bottomLeft = build(grid, row + half, col, half);
-        Node bottomRight = build(grid, row + half, col + half, half);
-
+        int half= size/2;
+        Node topleft= build(grid, row,col, half);
+        Node topright= build(grid, row,col+half,half);
+        Node bottomleft = build(grid, row+half, col,half);
+        Node bottomright= build(grid, row+half,col+half,half);
         return new Node(
-            true,          // arbitrary
-            false,
-            topLeft,
-            topRight,
-            bottomLeft,
-            bottomRight
+            true,false, topleft,topright,bottomleft,bottomright
         );
     }
 }
